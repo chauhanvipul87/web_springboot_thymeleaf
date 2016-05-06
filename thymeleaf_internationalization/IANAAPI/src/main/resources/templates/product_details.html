@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Thymeleaf tutorial: exercise 2</title>
+    </head>
+    <body>
+        <h1>Thymeleaf tutorial - Solution for exercise 1: bean values</h1>
+        <h2>Product information</h2>
+        
+         <div>Product name</div>
+         <div th:text="${product.description}">Red chair</div>
+         
+        <h2>Exercise 2: simple formatting </h2>
+         <div>Product price</div>
+         <div th:text="${#numbers.formatDecimal(product.price, 1, 2)}">350</div>
+
+         <div>Product available from</div>
+         <div th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</div>
+         
+         <h2>Exercise 3: string concatenation </h2>
+         <div>Product price</div>
+         <div th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">$350</div>
+         
+         <h2>Exercise 4: internationalization</h2>
+         <h3 th:text="#{tutorial.exercise4}"></h3>
+	     <h3 th:text="#{product.info}">Product information</h3>
+          <div th:text="#{product.name}">Product name</div>
+          <div th:text="${product.description}">Red chair</div>
+
+          <div th:text="#{product.price}">Product price</div>
+          <div th:text="${#numbers.formatDecimal(product.price, 1, 2)}">350</div>
+
+          <div th:text="#{product.available}">Product available from</div>
+          <div th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</div>
+	       
+         
+         
+    </body>
+</html>
