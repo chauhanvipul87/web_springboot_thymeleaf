@@ -9,5 +9,9 @@ Spring Boot + Thymeleaf Example
    
    Test this project using following URL:
    
+   http://localhost:8080/IANAAPI/product_details?lang=en
+   http://localhost:8080/IANAAPI/product_details?lang=es
+   http://localhost:8080/IANAAPI/product_details?lang=fr
+   
 
 
