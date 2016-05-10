@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+Source URL: <br/>
+http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#appendix-b-expression-utility-objects 
+
+<hr/>
+<section id="expression-utility-objects" class="level3">
+<h3>Expression Utility Objects</h3>
+<p>Besides these basic objects, Thymeleaf will offer us a set of utility objects that will help us perform common tasks in our expressions.</p>
+<ul>
+<li><code>#dates</code>: utility methods for <code>java.util.Date</code> objects: formatting, component extraction, etc.</li>
+<li><code>#calendars</code>: analogous to <code>#dates</code>, but for <code>java.util.Calendar</code> objects.</li>
+<li><code>#numbers</code>: utility methods for formatting numeric objects.</li>
+<li><code>#strings</code>: utility methods for <code>String</code> objects: contains, startsWith, prepending/appending, etc.</li>
+<li><code>#objects</code>: utility methods for objects in general.</li>
+<li><code>#bools</code>: utility methods for boolean evaluation.</li>
+<li><code>#arrays</code>: utility methods for arrays.</li>
+<li><code>#lists</code>: utility methods for lists.</li>
+<li><code>#sets</code>: utility methods for sets.</li>
+<li><code>#maps</code>: utility methods for maps.</li>
+<li><code>#aggregates</code>: utility methods for creating aggregates on arrays or collections.</li>
+<li><code>#messages</code>: utility methods for obtaining externalized messages inside variables expressions, in the same way as they would be obtained using #{...} syntax.</li>
+<li><code>#ids</code>: utility methods for dealing with id attributes that might be repeated (for example, as a result of an iteration).</li>
+</ul>
+<p>You can check what functions are offered by each of these utility objects in the <a href="#appendix-b-expression-utility-objects">Appendix B</a>.</p>
+</section>
+
+
+<hr/>
+<section id="appendix-b-expression-utility-objects" class="level1">
+<h1>18 Appendix B: Expression Utility Objects</h1>
+<section id="dates" class="level3">
+<h3>Dates</h3>
+<ul>
+<li><strong>#dates</strong> : utility methods for <code>java.util.Date</code> objects:</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Dates
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Format date with the standard locale format
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">arrayFormat</span><span class="token punctuation">(</span>datesArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">listFormat</span><span class="token punctuation">(</span>datesList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">setFormat</span><span class="token punctuation">(</span>datesSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Format date with the ISO8601 format
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">formatISO</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">arrayFormatISO</span><span class="token punctuation">(</span>datesArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">listFormatISO</span><span class="token punctuation">(</span>datesList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">setFormatISO</span><span class="token punctuation">(</span>datesSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Format date with the specified pattern
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>date<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">arrayFormat</span><span class="token punctuation">(</span>datesArray<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">listFormat</span><span class="token punctuation">(</span>datesList<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">setFormat</span><span class="token punctuation">(</span>datesSet<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Obtain date properties
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">day</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                    <span class="token comment" spellcheck="true">// also arrayDay(...), listDay(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">month</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                  <span class="token comment" spellcheck="true">// also arrayMonth(...), listMonth(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">monthName</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>              <span class="token comment" spellcheck="true">// also arrayMonthName(...), listMonthName(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">monthNameShort</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>         <span class="token comment" spellcheck="true">// also arrayMonthNameShort(...), listMonthNameShort(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">year</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                   <span class="token comment" spellcheck="true">// also arrayYear(...), listYear(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">dayOfWeek</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>              <span class="token comment" spellcheck="true">// also arrayDayOfWeek(...), listDayOfWeek(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">dayOfWeekName</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>          <span class="token comment" spellcheck="true">// also arrayDayOfWeekName(...), listDayOfWeekName(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">dayOfWeekNameShort</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>     <span class="token comment" spellcheck="true">// also arrayDayOfWeekNameShort(...), listDayOfWeekNameShort(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">hour</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                   <span class="token comment" spellcheck="true">// also arrayHour(...), listHour(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">minute</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                 <span class="token comment" spellcheck="true">// also arrayMinute(...), listMinute(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">second</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                 <span class="token comment" spellcheck="true">// also arraySecond(...), listSecond(...), etc.</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">millisecond</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>            <span class="token comment" spellcheck="true">// also arrayMillisecond(...), listMillisecond(...), etc.</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create date (java.util.Date) objects from its components
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">,</span>hour<span class="token punctuation">,</span>minute<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">,</span>hour<span class="token punctuation">,</span>minute<span class="token punctuation">,</span>second<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">,</span>hour<span class="token punctuation">,</span>minute<span class="token punctuation">,</span>second<span class="token punctuation">,</span>millisecond<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create a date (java.util.Date) object for the current date and time
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">createNow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create a date (java.util.Date) object for the current date (time set to 00:00)
+ */</span>
+$<span class="token punctuation">{</span>#dates<span class="token punctuation">.</span><span class="token function">createToday</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="calendars" class="level3">
+<h3>Calendars</h3>
+<ul>
+<li><strong>#calendars</strong> : analogous to <code>#dates</code>, but for <code>java.util.Calendar</code> objects:</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Calendars
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Format calendar with the standard locale format
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>cal<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">arrayFormat</span><span class="token punctuation">(</span>calArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">listFormat</span><span class="token punctuation">(</span>calList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">setFormat</span><span class="token punctuation">(</span>calSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Format calendar with the ISO8601 format
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">formatISO</span><span class="token punctuation">(</span>cal<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">arrayFormatISO</span><span class="token punctuation">(</span>calArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">listFormatISO</span><span class="token punctuation">(</span>calList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">setFormatISO</span><span class="token punctuation">(</span>calSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Format calendar with the specified pattern
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span>cal<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">arrayFormat</span><span class="token punctuation">(</span>calArray<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">listFormat</span><span class="token punctuation">(</span>calList<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">setFormat</span><span class="token punctuation">(</span>calSet<span class="token punctuation">,</span> <span class="token string">'dd/MMM/yyyy HH:mm'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Obtain calendar properties
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">day</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>                <span class="token comment" spellcheck="true">// also arrayDay(...), listDay(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">month</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>              <span class="token comment" spellcheck="true">// also arrayMonth(...), listMonth(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">monthName</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>          <span class="token comment" spellcheck="true">// also arrayMonthName(...), listMonthName(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">monthNameShort</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>     <span class="token comment" spellcheck="true">// also arrayMonthNameShort(...), listMonthNameShort(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">year</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>               <span class="token comment" spellcheck="true">// also arrayYear(...), listYear(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">dayOfWeek</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>          <span class="token comment" spellcheck="true">// also arrayDayOfWeek(...), listDayOfWeek(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">dayOfWeekName</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>      <span class="token comment" spellcheck="true">// also arrayDayOfWeekName(...), listDayOfWeekName(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">dayOfWeekNameShort</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// also arrayDayOfWeekNameShort(...), listDayOfWeekNameShort(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">hour</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>               <span class="token comment" spellcheck="true">// also arrayHour(...), listHour(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">minute</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>             <span class="token comment" spellcheck="true">// also arrayMinute(...), listMinute(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">second</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>             <span class="token comment" spellcheck="true">// also arraySecond(...), listSecond(...), etc.</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">millisecond</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span><span class="token punctuation">}</span>        <span class="token comment" spellcheck="true">// also arrayMillisecond(...), listMillisecond(...), etc.</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create calendar (java.util.Calendar) objects from its components
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">,</span>hour<span class="token punctuation">,</span>minute<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">,</span>hour<span class="token punctuation">,</span>minute<span class="token punctuation">,</span>second<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>year<span class="token punctuation">,</span>month<span class="token punctuation">,</span>day<span class="token punctuation">,</span>hour<span class="token punctuation">,</span>minute<span class="token punctuation">,</span>second<span class="token punctuation">,</span>millisecond<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create a calendar (java.util.Calendar) object for the current date and time
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">createNow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create a calendar (java.util.Calendar) object for the current date (time set to 00:00)
+ */</span>
+$<span class="token punctuation">{</span>#calendars<span class="token punctuation">.</span><span class="token function">createToday</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="numbers" class="level3">
+<h3>Numbers</h3>
+<ul>
+<li><strong>#numbers</strong> : utility methods for number objects:</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Numbers
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * ==========================
+ * Formatting integer numbers
+ * ==========================
+ */</span>
+
+<span class="token comment" spellcheck="true">/* 
+ * Set minimum integer digits.
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">formatInteger</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">arrayFormatInteger</span><span class="token punctuation">(</span>numArray<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">listFormatInteger</span><span class="token punctuation">(</span>numList<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">setFormatInteger</span><span class="token punctuation">(</span>numSet<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+
+<span class="token comment" spellcheck="true">/* 
+ * Set minimum integer digits and thousands separator: 
+ * 'POINT', 'COMMA', 'WHITESPACE', 'NONE' or 'DEFAULT' (by locale).
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">formatInteger</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">arrayFormatInteger</span><span class="token punctuation">(</span>numArray<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">listFormatInteger</span><span class="token punctuation">(</span>numList<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">setFormatInteger</span><span class="token punctuation">(</span>numSet<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+
+<span class="token comment" spellcheck="true">/*
+ * ==========================
+ * Formatting decimal numbers
+ * ==========================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Set minimum integer digits and (exact) decimal digits.
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">formatDecimal</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">arrayFormatDecimal</span><span class="token punctuation">(</span>numArray<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">listFormatDecimal</span><span class="token punctuation">(</span>numList<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">setFormatDecimal</span><span class="token punctuation">(</span>numSet<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Set minimum integer digits and (exact) decimal digits, and also decimal separator.
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">formatDecimal</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">arrayFormatDecimal</span><span class="token punctuation">(</span>numArray<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">listFormatDecimal</span><span class="token punctuation">(</span>numList<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">setFormatDecimal</span><span class="token punctuation">(</span>numSet<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Set minimum integer digits and (exact) decimal digits, and also thousands and 
+ * decimal separator.
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">formatDecimal</span><span class="token punctuation">(</span>num<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">arrayFormatDecimal</span><span class="token punctuation">(</span>numArray<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">listFormatDecimal</span><span class="token punctuation">(</span>numList<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">setFormatDecimal</span><span class="token punctuation">(</span>numSet<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'POINT'</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token string">'COMMA'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+
+
+<span class="token comment" spellcheck="true">/*
+ * ==========================
+ * Utility methods
+ * ==========================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Create a sequence (array) of integer numbers going
+ * from x to y
+ */</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">sequence</span><span class="token punctuation">(</span>from<span class="token punctuation">,</span>to<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#numbers<span class="token punctuation">.</span><span class="token function">sequence</span><span class="token punctuation">(</span>from<span class="token punctuation">,</span>to<span class="token punctuation">,</span>step<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="strings" class="level3">
+<h3>Strings</h3>
+<ul>
+<li><strong>#strings</strong> : utility methods for <code>String</code> objects:</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Strings
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Null-safe toString()
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">}</span>                           <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether a String is empty (or null). Performs a trim() operation before check
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">arrayIsEmpty</span><span class="token punctuation">(</span>nameArr<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">listIsEmpty</span><span class="token punctuation">(</span>nameList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">setIsEmpty</span><span class="token punctuation">(</span>nameSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Perform an 'isEmpty()' check on a string and return it if false, defaulting to
+ * another specified string if true.
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">defaultString</span><span class="token punctuation">(</span>text<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">arrayDefaultString</span><span class="token punctuation">(</span>textArr<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">listDefaultString</span><span class="token punctuation">(</span>textList<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">setDefaultString</span><span class="token punctuation">(</span>textSet<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether a fragment is contained in a String
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span><span class="token string">'ez'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                     <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">containsIgnoreCase</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span><span class="token string">'ez'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>           <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether a String starts or ends with a fragment
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">startsWith</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span><span class="token string">'Don'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                  <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">endsWith</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>endingFragment<span class="token punctuation">)</span><span class="token punctuation">}</span>           <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Substring-related operations
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>frag<span class="token punctuation">)</span><span class="token punctuation">}</span>                      <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                     <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">substringAfter</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>prefix<span class="token punctuation">)</span><span class="token punctuation">}</span>             <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">substringBefore</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>suffix<span class="token punctuation">)</span><span class="token punctuation">}</span>            <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span><span class="token string">'las'</span><span class="token punctuation">,</span><span class="token string">'ler'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>               <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Append and prepend
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">prepend</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span>prefix<span class="token punctuation">)</span><span class="token punctuation">}</span>                     <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span>suffix<span class="token punctuation">)</span><span class="token punctuation">}</span>                      <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Change case
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">}</span>                       <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">}</span>                       <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Split and join
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">arrayJoin</span><span class="token punctuation">(</span>namesArray<span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">listJoin</span><span class="token punctuation">(</span>namesList<span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">setJoin</span><span class="token punctuation">(</span>namesSet<span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">arraySplit</span><span class="token punctuation">(</span>namesStr<span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                <span class="token comment" spellcheck="true">// returns String[]</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">listSplit</span><span class="token punctuation">(</span>namesStr<span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                 <span class="token comment" spellcheck="true">// returns List&lt;String&gt;</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">setSplit</span><span class="token punctuation">(</span>namesStr<span class="token punctuation">,</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                  <span class="token comment" spellcheck="true">// returns Set&lt;String&gt;</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Trim
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                               <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute length
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                             <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Abbreviate text making it have a maximum size of n. If text is bigger, it
+ * will be clipped and finished in "..."
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">abbreviate</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">}</span>                      <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Convert the first character to upper-case (and vice-versa)
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">capitalize</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                         <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">unCapitalize</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                       <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Convert the first character of every word to upper-case
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">capitalizeWords</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                    <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">capitalizeWords</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span>delimiters<span class="token punctuation">)</span><span class="token punctuation">}</span>         <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Escape the string
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">escapeXml</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                          <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">escapeJava</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                         <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">escapeJavaScript</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                   <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">unescapeJava</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                       <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">unescapeJavaScript</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span><span class="token punctuation">}</span>                 <span class="token comment" spellcheck="true">// also array*, list* and set*</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Null-safe comparison and concatenation
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>first<span class="token punctuation">,</span> second<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">equalsIgnoreCase</span><span class="token punctuation">(</span>first<span class="token punctuation">,</span> second<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>values<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">concatReplaceNulls</span><span class="token punctuation">(</span>nullValue<span class="token punctuation">,</span> values<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Random
+ */</span>
+$<span class="token punctuation">{</span>#strings<span class="token punctuation">.</span><span class="token function">randomAlphanumeric</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="objects" class="level3">
+<h3>Objects</h3>
+<ul>
+<li><strong>#objects</strong> : utility methods for objects in general</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Objects
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Return obj if it is not null, and default otherwise
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#objects<span class="token punctuation">.</span><span class="token function">nullSafe</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#objects<span class="token punctuation">.</span><span class="token function">arrayNullSafe</span><span class="token punctuation">(</span>objArray<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#objects<span class="token punctuation">.</span><span class="token function">listNullSafe</span><span class="token punctuation">(</span>objList<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#objects<span class="token punctuation">.</span><span class="token function">setNullSafe</span><span class="token punctuation">(</span>objSet<span class="token punctuation">,</span><span class="token keyword">default</span><span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="booleans" class="level3">
+<h3>Booleans</h3>
+<ul>
+<li><strong>#bools</strong> : utility methods for boolean evaluation</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Bools
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Evaluate a condition in the same way that it would be evaluated in a th:if tag
+ * (see conditional evaluation chapter afterwards).
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">isTrue</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">arrayIsTrue</span><span class="token punctuation">(</span>objArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">listIsTrue</span><span class="token punctuation">(</span>objList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">setIsTrue</span><span class="token punctuation">(</span>objSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Evaluate with negation
+ * Also works with arrays, lists or sets
+ */</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">isFalse</span><span class="token punctuation">(</span>cond<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">arrayIsFalse</span><span class="token punctuation">(</span>condArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">listIsFalse</span><span class="token punctuation">(</span>condList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">setIsFalse</span><span class="token punctuation">(</span>condSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Evaluate and apply AND operator
+ * Receive an array, a list or a set as parameter
+ */</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">arrayAnd</span><span class="token punctuation">(</span>condArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">listAnd</span><span class="token punctuation">(</span>condList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">setAnd</span><span class="token punctuation">(</span>condSet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Evaluate and apply OR operator
+ * Receive an array, a list or a set as parameter
+ */</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">arrayOr</span><span class="token punctuation">(</span>condArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">listOr</span><span class="token punctuation">(</span>condList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#bools<span class="token punctuation">.</span><span class="token function">setOr</span><span class="token punctuation">(</span>condSet<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="arrays" class="level3">
+<h3>Arrays</h3>
+<ul>
+<li><strong>#arrays</strong> : utility methods for arrays</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Arrays
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Converts to array, trying to infer array component class.
+ * Note that if resulting array is empty, or if the elements
+ * of the target object are not all of the same class,
+ * this method will return Object[].
+ */</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Convert to arrays of the specified component class.
+ */</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toStringArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toIntegerArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toLongArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toDoubleArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toFloatArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">toBooleanArray</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute length
+ */</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether array is empty
+ */</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check if element or elements are contained in array
+ */</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#arrays<span class="token punctuation">.</span><span class="token function">containsAll</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> elements<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="lists" class="level3">
+<h3>Lists</h3>
+<ul>
+<li><strong>#lists</strong> : utility methods for lists</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Lists
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Converts to list
+ */</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">toList</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute size
+ */</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether list is empty
+ */</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check if element or elements are contained in list
+ */</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">containsAll</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> elements<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Sort a copy of the given list. The members of the list must implement
+ * comparable or you must define a comparator.
+ */</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#lists<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>list<span class="token punctuation">,</span> comparator<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="sets" class="level3">
+<h3>Sets</h3>
+<ul>
+<li><strong>#sets</strong> : utility methods for sets</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Sets
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Converts to set
+ */</span>
+$<span class="token punctuation">{</span>#sets<span class="token punctuation">.</span><span class="token function">toSet</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute size
+ */</span>
+$<span class="token punctuation">{</span>#sets<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span>set<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether set is empty
+ */</span>
+$<span class="token punctuation">{</span>#sets<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>set<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check if element or elements are contained in set
+ */</span>
+$<span class="token punctuation">{</span>#sets<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>set<span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#sets<span class="token punctuation">.</span><span class="token function">containsAll</span><span class="token punctuation">(</span>set<span class="token punctuation">,</span> elements<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="maps" class="level3">
+<h3>Maps</h3>
+<ul>
+<li><strong>#maps</strong> : utility methods for maps</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Maps
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute size
+ */</span>
+$<span class="token punctuation">{</span>#maps<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check whether map is empty
+ */</span>
+$<span class="token punctuation">{</span>#maps<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Check if key/s or value/s are contained in maps
+ */</span>
+$<span class="token punctuation">{</span>#maps<span class="token punctuation">.</span><span class="token function">containsKey</span><span class="token punctuation">(</span>map<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#maps<span class="token punctuation">.</span><span class="token function">containsAllKeys</span><span class="token punctuation">(</span>map<span class="token punctuation">,</span> keys<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#maps<span class="token punctuation">.</span><span class="token function">containsValue</span><span class="token punctuation">(</span>map<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#maps<span class="token punctuation">.</span><span class="token function">containsAllValues</span><span class="token punctuation">(</span>map<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="aggregates" class="level3">
+<h3>Aggregates</h3>
+<ul>
+<li><strong>#aggregates</strong> : utility methods for creating aggregates on arrays or collections</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Aggregates
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute sum. Returns null if array or collection is empty
+ */</span>
+$<span class="token punctuation">{</span>#aggregates<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#aggregates<span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span>collection<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Compute average. Returns null if array or collection is empty
+ */</span>
+$<span class="token punctuation">{</span>#aggregates<span class="token punctuation">.</span><span class="token function">avg</span><span class="token punctuation">(</span>array<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#aggregates<span class="token punctuation">.</span><span class="token function">avg</span><span class="token punctuation">(</span>collection<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="messages-1" class="level3">
+<h3>Messages</h3>
+<ul>
+<li><strong>#messages</strong> : utility methods for obtaining externalized messages inside variables expressions, in the same way as they would be obtained using <code>#{...}</code> syntax.</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Messages
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Obtain externalized messages. Can receive a single key, a key plus arguments,
+ * or an array/list/set of keys (in which case it will return an array/list/set of 
+ * externalized messages).
+ * If a message is not found, a default message (like '??msgKey??') is returned.
+ */</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msg</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msg</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> param1<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msg</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> param1<span class="token punctuation">,</span> param2<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msg</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> param1<span class="token punctuation">,</span> param2<span class="token punctuation">,</span> param3<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msgWithParams</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>param1<span class="token punctuation">,</span> param2<span class="token punctuation">,</span> param3<span class="token punctuation">,</span> param4<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">arrayMsg</span><span class="token punctuation">(</span>messageKeyArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">listMsg</span><span class="token punctuation">(</span>messageKeyList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">setMsg</span><span class="token punctuation">(</span>messageKeySet<span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Obtain externalized messages or null. Null is returned instead of a default
+ * message if a message for the specified key is not found.
+ */</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msgOrNull</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msgOrNull</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> param1<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msgOrNull</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> param1<span class="token punctuation">,</span> param2<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msgOrNull</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> param1<span class="token punctuation">,</span> param2<span class="token punctuation">,</span> param3<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">msgOrNullWithParams</span><span class="token punctuation">(</span><span class="token string">'msgKey'</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>param1<span class="token punctuation">,</span> param2<span class="token punctuation">,</span> param3<span class="token punctuation">,</span> param4<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">arrayMsgOrNull</span><span class="token punctuation">(</span>messageKeyArray<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">listMsgOrNull</span><span class="token punctuation">(</span>messageKeyList<span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#messages<span class="token punctuation">.</span><span class="token function">setMsgOrNull</span><span class="token punctuation">(</span>messageKeySet<span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+<section id="ids" class="level3">
+<h3>IDs</h3>
+<ul>
+<li><strong>#ids</strong> : utility methods for dealing with <code>id</code> attributes that might be repeated (for example, as a result of an iteration).</li>
+</ul>
+<pre class="  language-java"><code class="  language-java"><span class="token comment" spellcheck="true">/*
+ * ======================================================================
+ * See javadoc API for class org.thymeleaf.expression.Ids
+ * ======================================================================
+ */</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Normally used in th:id attributes, for appending a counter to the id attribute value
+ * so that it remains unique even when involved in an iteration process.
+ */</span>
+$<span class="token punctuation">{</span>#ids<span class="token punctuation">.</span><span class="token function">seq</span><span class="token punctuation">(</span><span class="token string">'someId'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*
+ * Normally used in th:for attributes in &lt;label&gt; tags, so that these labels can refer to Ids
+ * generated by means if the #ids.seq(...) function.
+ *
+ * Depending on whether the &lt;label&gt; goes before or after the element with the #ids.seq(...)
+ * function, the "next" (label goes before "seq") or the "prev" function (label goes after 
+ * "seq") function should be called.
+ */</span>
+$<span class="token punctuation">{</span>#ids<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token string">'someId'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+$<span class="token punctuation">{</span>#ids<span class="token punctuation">.</span><span class="token function">prev</span><span class="token punctuation">(</span><span class="token string">'someId'</span><span class="token punctuation">)</span><span class="token punctuation">}</span></code></pre>
+</section>
+</section>
+
+
+
+
+</body>
+</html>

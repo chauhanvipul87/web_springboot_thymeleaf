@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Thymeleaf tutorial: exercise 2</title>
+         <link rel="stylesheet" href="css/main.css" th:href="@{css/main.css}" />
+    </head>
+    <body>
+    	<div><a data-th-href="@{http://www.thymeleaf.org/eclipse-plugin-update-site/}">Update Software (STS | Eclipse)</a></div>
+    	<div align="right"><a th:href="@{appendix-b-expression-utility-objects.html}">Utility Link</a></div>
+        <h1>Thymeleaf tutorial - Solution for exercise 1: bean values</h1>
+        <h2>Product information</h2>
+        
+         <div>Product name</div>
+         <div th:text="${product.description}">Red chair</div>
+         
+         <hr/>
+        <h2>Thymeleaf tutorial - Exercise 2: simple formatting </h2>
+         <div>Product price</div>
+         <div th:text="${#numbers.formatDecimal(product.price, 1, 2)}">350</div>
+
+         <div>Product available from</div>
+         <div th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</div>
+         
+         <hr/>
+         <h2>Thymeleaf tutorial - Exercise 3: string concatenation </h2>
+         <div>Product price</div>
+         <div th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">$350</div>
+         
+         <hr/>
+         <h2>Thymeleaf tutorial - Exercise 4: internationalization</h2>
+         <h3 th:text="#{tutorial.exercise4}"></h3>
+	     <h3 th:text="#{product.info}">Product information</h3>
+          <div th:text="#{product.name}">Product name</div>
+          <div th:text="${product.description}">Red chair</div>
+
+          <div th:text="#{product.price}">Product price</div>
+          <div th:text="${#numbers.formatDecimal(product.price, 1, 2)}">350</div>
+
+          <div th:text="#{product.available}">Product available from</div>
+          <div th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</div>
+          
+          <hr/>
+           <h2>Thymeleaf tutorial - Solution for exercise 5: escaped and unescaped text</h2>
+	        <div th:text="${html}">
+	            Some escaped text
+	        </div>
+	        <div th:utext="${html}">
+	            Some unescaped text
+	        </div>
+	       
+	       <hr/>
+	      <h2>Thymeleaf tutorial - Solution for exercise 6: iteration</h2>
+        	<h2>Product list</h2>
+        	<table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available from</th>
+                </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each="product : ${productList}">
+                    <td th:text="${product.description}">Red chair</td>
+                    <td th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">$350</td>
+                    <td th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <hr/>
+        <h2>Thymeleaf tutorial - Answer for exercise 7: iteration stats</h2>
+        <h3>Product list</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Index</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available from</th>
+                </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each="product : ${productList}">
+                    <td th:text="${productStat.count}"></td>
+                    <td th:text="${product.description}"></td>
+                    <td th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}"></td>
+                    <td th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}"></td>
+                </tr>
+            </tbody>
+        </table>
+         
+         <hr/>
+        <h2>Thymeleaf tutorial - Answer for exercise 8: conditions</h2>
+        <h3>Product list</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available from</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${productList}">
+                    <td th:text="${product.description}">Red chair</td>
+                    <td th:text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">$350</td>
+                    <td th:text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</td>
+                    <td>
+                        <span th:if="${product.price lt 100}" class="offer">Special offer!</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        <hr/>
+        <h2>Thymeleaf tutorial - Solution for exercise 9: more on conditions</h2>
+        <h3>Customer list</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Gender</th>
+                    <th>Payment method</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody th:remove="all-but-first">
+                <tr th:each="customer : ${customerList}">
+                    <td th:text="${customer.firstName}">Peter</td>
+                    <td th:text="${customer.lastName}">Jackson</td>
+                    <td th:switch="${customer.gender?.name()}">
+                        <img th:case="'MALE'" th:src="@{/images/male.png}" alt="Male" />
+                        <img th:case="'FEMALE'" th:src="@{/images/female.png}" alt="Female" />
+                        <span th:case="*">Unknown</span>
+                    </td>
+                    <td>
+                        <span th:text="${customer.paymentMethod.description}">Direct debit</span>
+                        <span th:unless="${customer.paymentMethod.name() == 'CREDIT_CARD'}" class="warn">
+                            Payment must be done in the next 4 days
+                        </span>
+                    </td>
+                    <td th:class="${customer.balance gt 10000} ? 'enhanced'" th:text="${customer.balance}">350</td>
+                </tr>
+                 
+            </tbody>
+        </table>
+        
+        <hr/>
+         <h2>Thymeleaf tutorial - Solution for exercise 10: Spring Expression language</h2>
+  
+        <h3>Arithmetic expressions</h3>
+        <p class="label">Four multiplied by minus six multiplied by minus two module seven:</p>
+        <p class="answer" th:text="${4 * -6 * -2 % 7}">123</p>
+ 
+        <h2>Object navigation</h2>
+        <p class="label">Description field of paymentMethod field of the third element of customerList bean:</p>
+        <p class="answer" th:text="${customerList[2].paymentMethod.description}">Credit card</p>
+ 
+        <h2>Object instantiation</h2>
+        <p class="label">Current time milliseconds:</p>
+        <p class="answer" th:text="${new java.util.Date().getTime()}">22-Jun-2013</p>
+        
+        <h2>T operator</h2>
+        <p class="label">Random number:</p>
+        <p class="answer" th:text="${T(java.lang.Math).random()}">123456</p>
+        
+        <hr/>
+        <h2>Thymeleaf tutorial - Solution for exercise 11: links</h2>
+        <h3>Product actions</h3>
+        <ul>
+            <li><a href="#" th:href="@{exercise11/product.html(action='view')}">View product</a></li>
+            <li><a href="#" th:href="@{exercise11/product.html(action='edit')}">Edit product</a></li>
+        </ul>
+        
+        
+        <hr/>
+        <h2>Thymeleaf tutorial - Solution for exercise 12: forms</h2>
+        <h3>Customer edition</h3>
+        <form th:action="@{saveCustomer.html}" th:object="${customer}" method="get">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label for="firstName">First name:</label>
+            <input type="text" th:field="*{firstName}" value="John" />
+            
+            <label for="lastName">Last name:</label>
+            <input type="text" th:field="*{lastName}" value="Wayne" />
+            
+            Genre:
+            <div th:each="gender : ${genders}" class="radio">
+                <input type="radio" th:value="${gender}" th:field="*{gender}" />
+                <label th:for="${#ids.prev('gender')}" th:text="${gender.description}">Male</label>
+            </div>
+            <!-- <div th:remove="all" class="radio">
+                <input type="radio" />
+                <label>Female</label>
+            </div> -->
+            
+            <label for="paymentMethod">Payment method:</label>
+            <select th:field="*{paymentMethod}" th:remove="all-but-first">
+                <option th:each="paymentMethod : ${paymentMethods}"
+                        th:value="${paymentMethod}" th:text="${paymentMethod.description}">Credit card</option>
+                <option>Another payment method</option>
+                <option>Another payment method</option>
+            </select>
+            
+            <label for="balance">Balance (dollars):</label>
+            <input type="text" th:field="*{balance}" th:text="${balance}" size="10" value="2500" />
+            
+            <input type="submit" />
+        </form>
+        
+        <hr/>
+        <h2>Thymeleaf tutorial - Solution for exercise 12-1: forms</h2>
+        <h3>Customer edition</h3>
+        <form th:action="@{saveCustomer.html}" th:object="${customer}" method="get">
+            <input type="hidden" th:field="*{id}" />
+            
+            <label for="firstName">First name:</label>
+            <input type="text" name="firstName"  value="John" />
+            
+            <label for="lastName">Last name:</label>
+            <input type="text" name="lastName" value="Wayne" />
+            
+        </form>
+        
+        <hr/>
+        <h1>Thymeleaf tutorial - Solution for exercise 13: inlining</h1>
+        <h2>Birthday email</h2>
+        <form action="#" method="post">
+            <label for="body">Message body:</label>
+			<textarea id="body" name="body" th:inline="text">
+			Dear [[${customerName}]],
+			
+			it is our sincere pleasure to congratulate your in your birthday:
+			    Happy birthday [[${customerName}]]!!!
+			
+			See you soon, [[${customerName}]].
+			
+			Regards,
+			    The IANA team
+			</textarea>
+			  <input type="submit" value="Send mail" />
+		</form>
+		
+		<hr/>
+		<h2>Thymeleaf tutorial - Solution for exercise 16: literal substitutions</h2>
+        <h4>Concatenation</h4>
+        <span th:text="'Hello ' + ${customerName} + '!'">Hello, Peter!</span>
+        <h4>Preprocessing</h4>
+        <span th:text="'Hello __${customerName}__!'">Hello, Peter!</span>
+        <h4>Literal substitution</h4>
+        <span th:text="|Hello ${customerName}!|">Hello, Peter!</span>
+		
+		<hr/>
+		<h2>Thymeleaf tutorial - Solution for exercise 17: comments</h2>
+        <!-- [1] Start of the HTML main content -->
+        <h3>Product information</h3>
+        <dl>
+            <!--/* [2] The bean product is set in the controller */-->
+            <dt>Product name</dt>
+            <dd th:text="${product.description}">Red chair</dd>
+
+            <!--/*/
+            <dt>[3] Product price</dt>
+            <dd th:text="${product.price}">350</dd>
+            /*/-->
+
+            <dt>Product available from</dt>
+            <dd th:text="${product.availableFrom}">28-Jun-2013</dd>
+        </dl>
+        <!--/*-->
+            <footer>[4] Development mode!</footer>
+        <!--*/-->	
+        
+        
+        <hr/>
+        <h2>Thymeleaf tutorial - Solution for exercise 18: data-* syntax</h2>
+        <h3>Product list</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available from</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-th-each="product : ${productList}">
+                    <td data-th-text="${product.description}">Red chair</td>
+                    <td data-th-text="${'$' + #numbers.formatDecimal(product.price, 1, 2)}">$350</td>
+                    <td data-th-text="${#dates.format(product.availableFrom, 'dd-MMM-yyyy')}">28-Jun-2013</td>
+                    <td>
+                        <span data-th-if="${product.price lt 100}" class="offer">Special offer!</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table> 
+			        
+         <hr/>
+          <h2>Thymeleaf tutorial - Solution for exercise 19: Accessing Map Object</h2>
+         Your Name:<p th:text="${userMap['name']}"></p>
+         Your LastName:<p th:text="${userMap['sname']}"></p>
+         Your Age: <p th:text="${userMap['age']}"></p>
+         
+         
+         <div th:each="instance : ${userMap}">
+	             <span th:text="${instance.key}">keyvalue</span>
+	             <span th:text="${instance.value}">num</span>
+         </div>
+         
+         
+         <div>
+	             <span th:text="${userMap.name}"></span>
+	             <span th:text="${userMap.sname}"></span>
+	             <span th:text="${userMap.age}"></span>
+         </div>
+         
+         
+         
+         
+         
+    </body>
+</html>

@@ -1,0 +1,98 @@
+package com.iana.model;
+
+/**
+ * Customer information.
+ */
+public class Customer {
+    
+    private Integer id;
+    private String firstName;
+    private String lastName;
+    private Gender gender;
+    private PaymentMethod paymentMethod;
+    private int balance;
+    private String personalWebsite;
+    
+    public Customer() {
+        super();
+    }
+
+    public Customer(
+            final Integer id, final String firstName, final String lastName, 
+            final Gender gender, final PaymentMethod paymentMethod,
+            final int balance, final String personalWebsite) {
+        super();
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.paymentMethod = paymentMethod;
+        this.balance = balance;
+        this.personalWebsite = personalWebsite;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(final Integer id) {
+        this.id = id;
+    }
+
+    public int getBalance() {
+        return this.balance;
+    }
+
+    public void setBalance(final int balance) {
+        this.balance = balance;
+    }
+
+    public String getFirstName() {
+        return this.firstName;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Gender getGender() {
+        return this.gender;
+    }
+
+    public void setGender(final Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getLastName() {
+        return this.lastName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public PaymentMethod getPaymentMethod() {
+        return this.paymentMethod;
+    }
+
+    public void setPaymentMethod(final PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getPersonalWebsite() {
+        return personalWebsite;
+    }
+
+    public void setPersonalWebsite(String personalWebsite) {
+        this.personalWebsite = personalWebsite;
+    }
+
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender
+				+ ", paymentMethod=" + paymentMethod + ", balance=" + balance + ", personalWebsite=" + personalWebsite
+				+ "]";
+	}
+    
+    
+}
